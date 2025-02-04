@@ -9,7 +9,7 @@
     "build-only": "vite build",
     "preview": "yarn build && vite preview",
     "type-check": "vue-tsc --noEmit",
-    "deploy": "yarn build && cd dist && cp index.html 404.html && cd .. && gh-pages -d dist --cname blackjack-trainer.fabioeletto.dev"
+    "deploy": "yarn build && cd dist && cp index.html 404.html && touch .nojekyll && cd .. && gh-pages -d dist --cname blackjack-trainer.fabioeletto.dev"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.1",
