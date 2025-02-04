@@ -90,7 +90,7 @@ function handlePlayerScoreChanged(score: string) {
       <DealerHand class="mb-14" :dealer-card-rank="currentScenario.dealerCard" />
       <Statistic 
         id="score-table"
-        class="mb-14"
+        class="lg:mb-14 mb-10"
         :correct-scenarios-length="correctScenarios.length" 
         :incorrect-scenarios="incorrectScenarios" 
         :visited-scenarios-length="visitedScenarios.length"

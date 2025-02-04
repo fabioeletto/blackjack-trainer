@@ -92,14 +92,14 @@ function decomposeIntoSums(number: number): {rank1: number, rank2: number}[] {
     <div>
         <Card 
             :rank="playerCardOneRank"
-            class="-rotate-12 z-10 absolute shadow-xl lg:left-18 sm:left-22 left-21"
+            class="-rotate-12 z-10 absolute shadow-xl lg:left-18 sm:left-22 left-17"
         />
         <Card 
             :rank="playerCardTwoRank"
-            class="rotate-12 absolute shadow-xl lg:right-18 sm:right-22 right-21" 
+            class="rotate-12 absolute shadow-xl lg:right-18 sm:right-22 right-17" 
         />
         <span 
-            class="absolute z-20 batch rounded lg:text-base lg:px-4 lg:py-2 lg:w-36 lg:-bottom-64 lg:left-42 sm:px-3 sm:py-1 sm:w-32 sm:-bottom-47 sm:left-36 px-2 py-1 w-[6.5rem] -bottom-36 left-30 text-sm"
+            class="absolute z-20 batch rounded lg:text-base lg:px-4 lg:py-2 lg:w-36 lg:-bottom-64 lg:left-42 sm:px-3 sm:py-1 sm:w-32 sm:-bottom-47 sm:left-36 px-2 py-1 w-30 -bottom-42 left-28 text-sm"
         >
             Player: {{ playerScore }}
         </span>
