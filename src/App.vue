@@ -109,28 +109,28 @@ function handlePlayerScoreChanged(score: string) {
           class="lg:px-4 lg:py-2 text-white rounded lg:w-28 sm:w-24 w-20 lg:text-base text-sm px-1 py-1"
           :disabled="!canPlay"
         >
-          Hit (1)
+          Hit<span class="lg:inline hidden"> (1)</span>
         </button>
         <button 
           @click="checkAnswer('Stand')"
           class="lg:px-4 lg:py-2 text-white rounded lg:w-28 sm:w-24 w-20 lg:text-base text-sm px-1 py-1"
           :disabled="!canPlay"
         >
-          Stand (2)
+          Stand<span class="lg:inline hidden"> (2)</span>
         </button>
         <button 
           @click="checkAnswer('Double')" 
           class="lg:px-4 lg:py-2 text-white rounded lg:w-28 sm:w-24 w-20 lg:text-base text-sm px-1 py-1"
           :disabled="!canDouble || !canPlay"
         >
-          Double (3)
+          Double<span class="lg:inline hidden"> (3)</span>
         </button>
         <button 
           @click="checkAnswer('Split')"
           class="lg:px-4 lg:py-2 text-white rounded lg:w-28 sm:w-24 w-20 lg:text-base text-sm px-1 py-1"
           :disabled="!canSplit || !canPlay"
         >
-          Split (4)
+          Split<span class="lg:inline hidden"> (4)</span>
         </button>
       </div>
     </div>
