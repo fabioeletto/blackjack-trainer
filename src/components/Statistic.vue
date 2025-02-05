@@ -54,13 +54,12 @@ function clearUserSession() {
 </script>
 
 <template>
-    <div>
+    <div class="sm:w-sm w-xs">
         <table>
             <thead>
             <tr>
                 <th>Stat</th>
                 <th>Value</th>
-                <th>Percentage</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -68,19 +67,16 @@ function clearUserSession() {
             <tr>
                 <td>Correct</td>
                 <td>{{ correctScenariosLength }}</td>
-                <td>{{ correctPercentageText }}</td>
                 <td></td>
             </tr>
             <tr>
                 <td>Incorrect</td>
                 <td>{{ incorrectScenarios.length }}</td>
-                <td>{{ incorrectPercentageText }}</td>
                 <td><a v-if="incorrectScenarios.length > 0" @click="openDialog">Show</a></td>
             </tr>
             <tr>
-                <td>Progress</td>
-                <td>{{ visitedScenariosLength }} / {{ scenariosLength }}</td>
-                <td>{{ (visitedScenariosLength / scenariosLength * 100).toFixed(2) }}%</td>
+                <td>Visited</td>
+                <td>{{ visitedScenariosLength }} / {{ scenariosLength }} ({{ (visitedScenariosLength / scenariosLength * 100).toFixed(2) }}%)</td>
                 <td>
                     <a 
                         v-if="visitedScenariosLength > 0"

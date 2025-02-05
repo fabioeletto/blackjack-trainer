@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import scenarios from './assets/blackjack_scenarios.json';
 import DealerHand from './components/DealerHand.vue';
 import PlayerHand from './components/PlayerHand.vue';
@@ -10,6 +10,7 @@ import { useUserSessionStore } from './user-session-store';
 
 const userSessionStore = useUserSessionStore();
 
+const rounds = ref(0);
 const visitedScenarios = ref<Scenario[]>(userSessionStore.visibleScenarios);
 const currentScenario = ref<Scenario>(userSessionStore.currentScenario || scenarios[0]);
 const lastAnswerCorrect = ref<boolean | null>(null);
@@ -27,28 +28,57 @@ const canDouble = computed(() => {
 })
 
 const canPlay = computed(() => {
-  return notVisitedScenarios.value.length > 0;
+  return notVisitedScenarios.value.length > 0 || incorrectScenarios.value.length > 0;
 });
+
+function handleKeyDown(event: KeyboardEvent) {
+  if (event.key === '1') {
+    checkAnswer('Hit');
+  } else if (event.key === '2') {
+    checkAnswer('Stand');
+  } else if (event.key === '3') {
+    checkAnswer('Double');
+  } else if (event.key === '4') {
+    checkAnswer('Split');
+  }
+}
 
 onMounted(() => {
-  document.addEventListener("keydown", (event) => {
-    if (event.key === '1') {
-      checkAnswer('Hit');
-    } else if (event.key === '2') {
-      checkAnswer('Stand');
-    } else if (event.key === '3') {
-      checkAnswer('Double');
-    } else if (event.key === '4') {
-      checkAnswer('Split');
-    }
-  });
+  if(canPlay.value) {
+    document.addEventListener("keydown", handleKeyDown);
+  }
 });
 
-function loadRandomScenario() {
+onUnmounted(() => {
+  document.removeEventListener("keydown", handleKeyDown);
+})
+
+watch(canPlay, (value) => {
+  if (!value) {
+    document.removeEventListener("keydown", handleKeyDown);
+  }
+});
+
+function loadRandomIncorrectScenario() {
+  const randomIndex = Math.floor(Math.random() * incorrectScenarios.value.length);
+  const scenario = incorrectScenarios.value[randomIndex];
+  incorrectScenarios.value.splice(randomIndex, 1);
+  return scenario;
+}
+
+function loadRandomNotVisitedScenario() {
   const randomIndex = Math.floor(Math.random() * notVisitedScenarios.value.length);
   const scenario = notVisitedScenarios.value[randomIndex];
   visitedScenarios.value.push(scenario);
   return scenario;
+}
+
+function loadRandomScenario() {
+  rounds.value++;
+  if (incorrectScenarios.value.length > 0 && (rounds.value % 5 === 0 || notVisitedScenarios.value.length === 0)) {
+    return loadRandomIncorrectScenario();
+  } 
+  return loadRandomNotVisitedScenario();
 }
 
 function checkAnswer(userChoice: UserChoice) {

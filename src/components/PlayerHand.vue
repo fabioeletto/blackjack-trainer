@@ -48,7 +48,6 @@ function convertPlayerHandToRanks() {
             playerCardTwoRank.value = tenRanksWithoutSelected[Math.floor(Math.random() * tenRanksWithoutSelected.length)];
             playerScore.value = '20';
         } else {
-            console.log(randomRank);
             const sums = decomposeIntoSums(randomRank);
             const pair = sums[Math.floor(Math.random() * sums.length)];
             playerCardOneRank.value = pair.rank1.toString();

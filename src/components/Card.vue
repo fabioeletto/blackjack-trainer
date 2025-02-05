@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import type { Suit } from "../types";
 
 defineProps<{
     rank: string;
 }>()
 
-const suits = ['hearts', 'diamonds', 'clubs', 'spades']
+const suits: Suit[] = ['hearts', 'diamonds', 'clubs', 'spades']
 const randomSuit = suits[Math.floor(Math.random() * suits.length)]
 
 </script>

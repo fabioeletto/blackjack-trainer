@@ -16,3 +16,5 @@ export interface UserSession {
     visibleScenarios: Scenario[];
     currentScenario: Scenario;
 }
+
+export type Suit = "hearts" | "diamonds" | "clubs" | "spades";
