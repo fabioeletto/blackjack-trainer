@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import Dialog from './Dialog.vue';
 import ConfirmDialog from './ConfirmDialog.vue';
 import type { IncorrectScenario } from '../types';
@@ -7,7 +7,7 @@ import { useUserSessionStore } from '../user-session-store';
 
 const userSessionStore = useUserSessionStore();
 
-const props = defineProps({
+defineProps({
     correctScenariosLength: {
         type: Number,
         required: true
@@ -28,16 +28,6 @@ const props = defineProps({
 
 const dialogTargetIncorrectScenarios = ref<InstanceType<typeof Dialog>>();
 const dialogTargetConfirmReset = ref<InstanceType<typeof ConfirmDialog>>();
-
-const correctPercentageText = computed(() => {
-  const percentage = props.correctScenariosLength / props.visitedScenariosLength * 100 || 0
-  return `${percentage.toFixed(2)}%`;
-});
-
-const incorrectPercentageText = computed(() => {
-  const percentage = props.incorrectScenarios.length / props.visitedScenariosLength * 100 || 0
-  return `${percentage.toFixed(2)}%`;
-});
 
 function openDialog() {
   dialogTargetIncorrectScenarios.value?.show();
