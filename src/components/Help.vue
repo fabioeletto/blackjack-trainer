@@ -2,28 +2,31 @@
 import { ref } from 'vue';
 import Dialog from './Dialog.vue';
 import scenarios from '../assets/blackjack_scenarios.json';
+import type { UserChoice } from '../types';
 
 const dialogTarget = ref<InstanceType<typeof Dialog>>();
 const openDialog = () => dialogTarget.value?.show();
 
-const props = defineProps({
-    playerHand: {
-        type: String,
-        required: true
-    },
-    playerScore: {
-        type: String,
-        required: true
-    },
-    dealerCard: {
-        type: String,
-        required: true
-    }
-})
+const playerHands = [...new Set(scenarios.map(scenario => scenario.playerHand))];
+const dealerCards = [...new Set(scenarios.map(scenario => scenario.dealerCard))];
 
-function getHelpText() {
-    const scenario = scenarios.find(scenario => scenario.playerHand === props.playerHand && scenario.dealerCard === props.dealerCard);
-    return `Dealer has ${props.dealerCard} and you have ${props.playerScore} -> You should ${scenario?.correctAction}.`;
+function getScenarioCorrectAction(playerHand: string, dealerCard: string) {
+    return scenarios.find(scenario => scenario.playerHand === playerHand && scenario.dealerCard === dealerCard)?.correctAction;
+}
+
+function getColorForAction(action?: string) {
+    if (!action) {
+        return 'transparent';
+    }
+    if (action === 'Hit') {
+        return '#4CAF50';
+    } else if (action === 'Stand') {
+        return '#F44336';
+    } else if (action === 'Double') {
+        return '#2196F3';
+    } else if (action === 'Split') {
+        return '#FFC107';
+    }
 }
 
 
@@ -38,7 +41,58 @@ function getHelpText() {
             Show Help?
         </span>
         <Dialog ref="dialogTarget">
-            <p>{{ getHelpText() }}</p>
+            <table>
+                <thead>
+                    <tr>
+                        <td>Dealer \ Player</td>
+                        <th v-for="playerHand in playerHands" :key="playerHand" scope="col">
+                            {{ playerHand }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="dealerCard in dealerCards" :key="dealerCard">
+                        <th scope="row">{{ dealerCard }}</th>
+                        <td v-for="playerHand in playerHands" :key="playerHand" :style="{ backgroundColor: getColorForAction(getScenarioCorrectAction(playerHand, dealerCard)) }">
+                            <span v-if="getScenarioCorrectAction(playerHand, dealerCard) === 'Hit'">+</span>
+                            <span v-else-if="getScenarioCorrectAction(playerHand, dealerCard) === 'Stand'">-</span>
+                            <span v-else-if="getScenarioCorrectAction(playerHand, dealerCard) === 'Double'">2X</span>
+                            <span v-else-if="getScenarioCorrectAction(playerHand, dealerCard) === 'Split'">| |</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </Dialog>
    </div> 
 </template>
+
+<style scoped>
+
+dialog {
+    width: 90%;
+}
+
+table {
+    border-collapse: collapse;
+    width: fit-content;
+    table-layout: fixed;
+    overflow-x: auto;
+    display: block; 
+    white-space: nowrap;
+}
+
+th, td {
+    width: 3em;
+    height: 3em; 
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid black;
+    border-radius: 0.25em;
+}
+
+th {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+</style>

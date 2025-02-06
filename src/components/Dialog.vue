@@ -24,8 +24,10 @@ function closeFromEvent(event: MouseEvent) {
         ref="dialogRef" 
         class="bg-white text-clack rounded-md p-6"
         @click="closeFromEvent"
-    >
-        <slot />
+    >   
+        <div class="flex justify-center items-center">
+            <slot />
+        </div>
         <button @click="closeDialog" class="mt-4 px-2 py-1 w-16 rounded-md">Close</button>
     </dialog>
 </template>
