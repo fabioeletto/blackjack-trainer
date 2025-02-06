@@ -36,9 +36,9 @@ function handleKeyDown(event: KeyboardEvent) {
     checkAnswer('Hit');
   } else if (event.key === '2') {
     checkAnswer('Stand');
-  } else if (event.key === '3') {
+  } else if (event.key === '3' && canDouble.value) {
     checkAnswer('Double');
-  } else if (event.key === '4') {
+  } else if (event.key === '4' && canSplit.value) {
     checkAnswer('Split');
   }
 }
