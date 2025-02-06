@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 import Dialog from './Dialog.vue';
 import scenarios from '../assets/blackjack_scenarios.json';
-import type { UserChoice } from '../types';
 
 const dialogTarget = ref<InstanceType<typeof Dialog>>();
 const openDialog = () => dialogTarget.value?.show();
