@@ -166,9 +166,7 @@ function handlePlayerScoreChanged(score: string) {
     </div>
     <Help 
       class="absolute bottom-5 right-5 mr-4 mb-4 hidden lg:block" 
-      :player-hand="currentScenario.playerHand"
-      :player-score="currentPlayerScore"
-      :dealer-card="currentScenario.dealerCard"
+      :scenario="currentScenario"
     />
   </div>  
 </template>

@@ -2,6 +2,11 @@
 import { ref } from 'vue';
 import Dialog from './Dialog.vue';
 import scenarios from '../assets/blackjack_scenarios.json';
+import type { Scenario } from '../types';
+
+const props = defineProps<{
+    scenario: Scenario;
+}>();
 
 const dialogTarget = ref<InstanceType<typeof Dialog>>();
 const openDialog = () => dialogTarget.value?.show();
@@ -28,6 +33,10 @@ function getColorForAction(action?: string) {
     }
 }
 
+function isCurrentScenario(playerHand: string, dealerCard: string) {
+    return playerHand === props.scenario.playerHand && dealerCard === props.scenario.dealerCard;
+}
+
 
 </script>
 
@@ -52,7 +61,14 @@ function getColorForAction(action?: string) {
                 <tbody>
                     <tr v-for="dealerCard in dealerCards" :key="dealerCard">
                         <th scope="row">{{ dealerCard }}</th>
-                        <td v-for="playerHand in playerHands" :key="playerHand" :style="{ backgroundColor: getColorForAction(getScenarioCorrectAction(playerHand, dealerCard)) }">
+                        <td 
+                            v-for="playerHand in playerHands"
+                            :key="playerHand"
+                            :style="{ 
+                                backgroundColor: getColorForAction(getScenarioCorrectAction(playerHand, dealerCard)),
+                            }"
+                            :class="{ activeScenario: isCurrentScenario(playerHand, dealerCard) }"
+                        >
                             <span v-if="getScenarioCorrectAction(playerHand, dealerCard) === 'Hit'">+</span>
                             <span v-else-if="getScenarioCorrectAction(playerHand, dealerCard) === 'Stand'">-</span>
                             <span v-else-if="getScenarioCorrectAction(playerHand, dealerCard) === 'Double'">2X</span>
@@ -93,5 +109,10 @@ th {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.activeScenario {
+    border-radius: 0.25em;
+    border: 4px solid #7b07ff;
 }
 </style>
