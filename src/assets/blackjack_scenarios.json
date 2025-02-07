@@ -137,15 +137,15 @@
     {
         "playerHand": "10",
         "dealerCard": "9",
-        "correctAction": "Double"
-    },
-    {
-        "playerHand": "10",
-        "dealerCard": "10",
         "correctAction": "Hit"
     },
     {
         "playerHand": "10",
+        "dealerCard": "10",
+        "correctAction": "Hit"
+    },
+    {
+        "playerHand": "10",
         "dealerCard": "A",
         "correctAction": "Hit"
     },
@@ -607,22 +607,22 @@
     {
         "playerHand": "A-7",
         "dealerCard": "3",
-        "correctAction": "Hit"
+        "correctAction": "Stand"
     },
     {
         "playerHand": "A-7",
         "dealerCard": "4",
-        "correctAction": "Hit"
+        "correctAction": "Stand"
     },
     {
         "playerHand": "A-7",
         "dealerCard": "5",
-        "correctAction": "Hit"
+        "correctAction": "Stand"
     },
     {
         "playerHand": "A-7",
         "dealerCard": "6",
-        "correctAction": "Hit"
+        "correctAction": "Stand"
     },
     {
         "playerHand": "A-7",
@@ -987,7 +987,7 @@
     {
         "playerHand": "5-5",
         "dealerCard": "9",
-        "correctAction": "Double"
+        "correctAction": "Hit"
     },
     {
         "playerHand": "5-5",
